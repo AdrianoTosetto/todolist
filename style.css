@@ -1,0 +1,26 @@
+td{
+	text-align: center;
+	border:1px solid #DDD;
+}
+
+tr{
+	
+}
+
+#main-box{
+	border:1px solid #CCC;
+	min-height: 300px;
+	 clear: both;
+	 position: relative;
+}
+#table-box{
+	min-height: 95%;
+}
+#footer{
+	height: 5%;
+	width: 100%;
+	float:;
+	border:1px solid #000;
+	position: relative;
+	bottom: 1px;
+}
