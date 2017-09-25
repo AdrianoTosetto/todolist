@@ -1,12 +1,76 @@
+var default_days = 10;
+var lastId = getCookie("lastID"); //last id task added
+
+var getIDFromString = function(stringID) {
+	var match = stringID.match(/\d+$/);
+	return match == null ? null : parseInt(match[0]);
+}
+
+var getAllTasks = function() {
+	var currentID = getCookie("lastID");
+
+	for(var i = -1; i < currentID; i++) {
+		var taskID    = "taskID"    + i;
+		var beginID   = "beginID"   + i;
+		var endID     = "endID"     + i;
+		var statusID  = "statusID"  + i;
+		var updtBtnID = "updtBtnID" + i;
+
+		console.log("id: " + getCookie(taskID) + " begin date: " + getCookie(beginID) + " end date: " + 
+			getCookie(endID) + " status: " + getCookie(statusID));
+	}
+}
+var loadTasks = function() {
+	var id = getCookie("lastID");
+	console.log(id);
+	for(var i = 0; i < id; i++) {
+		var taskID    = "taskID"    + i;
+		var beginID   = "beginID"   + i;
+		var endID     = "endID"     + i;
+		var statusID  = "statusID"  + i;
+
+		var vtaskID    = getCookie(taskID);
+		var vbeginID   = getCookie(beginID);
+		var vendID     = getCookie(endID);
+		var vstatusID  = getCookie(statusID);
+
+
+		var data = [vtaskID, vbeginID, vendID, vstatusID];
+
+		console.log(data);
+
+		appendTask('todo-list-table', data);
+
+	}
+}
 $(document).ready(function() {
-	$(document).on('click', 'td', function() {
+	//$(document).on('click', 'td', function() {});
+	loadTasks();
+	$(document).on('click', '.updateButton', function(){
+		var id = getIDFromString( $(this).attr('id') );
+		var taskID    = "taskID"    + id;
+		var beginID   = "beginID"   + id;
+		var endID     = "endID"     + id;
+		var statusID  = "statusID"  + id;
+		var updtBtnID = "updtBtnID" + id;
+
+
+
+		console.log($('#' + taskID).val());
+		console.log($('#' + beginID).val());
+		console.log($('#' + endID).val());
+		console.log($('#' + statusID).val());
+
+		setCookie(taskID,$('#' + taskID).val(),10);
+		setCookie(beginID,$('#' + beginID).val(),10);
+		setCookie(endID,$('#' + endID).val(),10);
+		setCookie(statusID,$('#' + statusID).val(),10);
 	});
 	
 	$('#addTask').click(function() {
 		addNewTask('todo-list-table');
-		var lastId = getCookie("lastID");
 		if(lastId == null)
-			lastId = -1;
+			lastId = 0;
 		else
 			lastId = parseInt(lastId);
 
@@ -17,28 +81,71 @@ $(document).ready(function() {
 	});
 });
 
+var getInputText = function(id) {
+	return $('#' + id).val();
+}
+
+var updateTask = function(id) {
+	var taskID    = "taskID"    + id;
+	var beginID   = "beginID"   + id;
+	var endID     = "endID"     + id;
+	var statusID  = "statusID"  + id;
+	var updtBtnID = "updtBtnID" + id;
+
+	setCookie(taskID, $('#' + taskID).val(),10);
+	setCookie(beginID, $('#' + beginID).val(),10);
+	setCookie(endID, $('#' + endID).val(),10);
+}
+
 var setCookies = function(taskName, beginDate, endDate, status, id) {
-	setCookie("taskName" + id, taskName, 10);
-	setCookie("beginDate" + id, beginDate, 10);
-	setCookie("endDate" + id, endDate, 10);
-	setCookie("status" + id, status, 10);
+	setCookie("taskName"  + id, taskName,  default_days);
+	setCookie("beginDate" + id, beginDate, default_days);
+	setCookie("endDate"   + id, endDate,   default_days);
+	setCookie("status"    + id, status,    default_days);
+}
+
+var appendTask = function(tableID, data) {
+
+	var id = getCookie("lastID");
+	var taskID    = "taskID"    + id;
+	var beginID   = "beginID"   + id;
+	var endID     = "endID"     + id;
+	var statusID  = "statusID"  + id;
+	var updtBtnID = "updtBtnID" + id;
+
+
+	var html = '<tr id="'+id+'">';
+	html    += '<td><input type="textbox" id = "' +taskID+ '" value = "' + data[0] + '"/>';
+	html    += '</td><td><input type="date" id = "'+beginID+'" value = "'+data[1]+'"/>';
+	html    += '</td><td><input type="date" id="'+endID+'"/></td>';
+	html    += '<td><select id = "'+statusID+'" value = "'+data[2]+'""><option value="todo">To do</option><option value="doing">Doing</option><option value="done">Done</option></select>';
+	html    += '<td><input type="checkbox" name=""></td>';
+	html    += '<td>-1</td>';
+	html    += '<td><input type="button" value="atualizar" class="updateButton" id="'+updtBtnID+'"/></td>';
+	
+	$('#' + tableID).append(html);
+
 }
 
 var addNewTask = function(tableId) {
 	var id = getCookie("lastID");
-	var taskID   = "taskID"   + id;
-	var beginID  = "beginID"  + id;
-	var endID    = "endID"    + id;
-	var statusID = "statusID" + id;
+	var taskID    = "taskID"    + id;
+	var beginID   = "beginID"   + id;
+	var endID     = "endID"     + id;
+	var statusID  = "statusID"  + id;
+	var updtBtnID = "updtBtnID" + id;
 
 
 	var html = '<tr id="'+id+'">';
-	html    += '<td><input type="textbox"/>';
-	html    += '</td><td><input type="date"/></td><td><input type="date"/></td>';
-	html    += '<td><select><option value="">To do</option><option value="">Doing</option><option value="">Done</option></select>';
-	html    +=		"</td> <td><input type='checkbox' name=''></td><td>"+getCookie("lastID")+"</td></tr>";
+	html    += '<td><input type="textbox" id = "' +taskID+ '"/>';
+	html    += '</td><td><input type="date" id = "'+beginID+'"/>';
+	html    += '</td><td><input type="date" id="'+endID+'"/></td>';
+	html    += '<td><select id = "'+statusID+'""><option value="todo">To do</option><option value="doing">Doing</option><option value="done">Done</option></select>';
+	html    += '<td><input type="checkbox" name=""></td>';
+	html    += '<td>-1</td>';
+	html    += '<td><input type="button" value="atualizar" class="updateButton" id="'+updtBtnID+'"/></td>';
+	
 	$('#' + tableId).append(html);
-
 }
 
 function setCookie(name, value, days) {
