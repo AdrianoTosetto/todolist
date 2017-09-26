@@ -8,8 +8,9 @@ var getIDFromString = function(stringID) {
 
 var getAllTasks = function() {
 	var currentID = getCookie("lastID");
+	if(currentID == null) return;
 
-	for(var i = -1; i < currentID; i++) {
+	for(var i = 1; i < currentID; i++) {
 		var taskID    = "taskID"    + i;
 		var beginID   = "beginID"   + i;
 		var endID     = "endID"     + i;
@@ -22,8 +23,9 @@ var getAllTasks = function() {
 }
 var loadTasks = function() {
 	var id = getCookie("lastID");
+	if(id == null) return;
 	console.log(id);
-	for(var i = 0; i < id; i++) {
+	for(var i = 1; i < id; i++) {
 		var taskID    = "taskID"    + i;
 		var beginID   = "beginID"   + i;
 		var endID     = "endID"     + i;
@@ -35,7 +37,7 @@ var loadTasks = function() {
 		var vstatusID  = getCookie(statusID);
 
 
-		var data = [vtaskID, vbeginID, vendID, vstatusID];
+		var data = [vtaskID, vbeginID, vendID, vstatusID, i];
 
 		console.log(data);
 
@@ -70,7 +72,7 @@ $(document).ready(function() {
 	$('#addTask').click(function() {
 		addNewTask('todo-list-table');
 		if(lastId == null)
-			lastId = 0;
+			lastId = 1;
 		else
 			lastId = parseInt(lastId);
 
@@ -106,7 +108,7 @@ var setCookies = function(taskName, beginDate, endDate, status, id) {
 
 var appendTask = function(tableID, data) {
 
-	var id = getCookie("lastID");
+	var id = data[4];
 	var taskID    = "taskID"    + id;
 	var beginID   = "beginID"   + id;
 	var endID     = "endID"     + id;
@@ -117,18 +119,19 @@ var appendTask = function(tableID, data) {
 	var html = '<tr id="'+id+'">';
 	html    += '<td><input type="textbox" id = "' +taskID+ '" value = "' + data[0] + '"/>';
 	html    += '</td><td><input type="date" id = "'+beginID+'" value = "'+data[1]+'"/>';
-	html    += '</td><td><input type="date" id="'+endID+'"/></td>';
-	html    += '<td><select id = "'+statusID+'" value = "'+data[2]+'""><option value="todo">To do</option><option value="doing">Doing</option><option value="done">Done</option></select>';
+	html    += '</td><td><input type="date" id="'+endID+'" value = "' +data[2]+ '"/></td>';
+	html    += '<td><select id = "'+statusID+'" value = "'+data[3]+'""><option value="todo">To do</option><option value="doing">Doing</option><option value="done">Done</option></select>';
 	html    += '<td><input type="checkbox" name=""></td>';
 	html    += '<td>-1</td>';
-	html    += '<td><input type="button" value="atualizar" class="updateButton" id="'+updtBtnID+'"/></td>';
+	html    += '<td><input type="button" value="atualizar" class="updateButton" id="'+data[4]+'"/></td>';
 	
 	$('#' + tableID).append(html);
+	$('#' + statusID).val(data[3]);
 
 }
 
 var addNewTask = function(tableId) {
-	var id = getCookie("lastID");
+	var id = getCookie("lastID") | 1;
 	var taskID    = "taskID"    + id;
 	var beginID   = "beginID"   + id;
 	var endID     = "endID"     + id;
