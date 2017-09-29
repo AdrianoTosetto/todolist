@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+
+	  <!-- Compiled and minified JavaScript -->
+	  <script src="jquery.js"></script>
+
+	  <script src="js/materialize.min.js"></script>	  
+
+    <script src="task.js"></script>   
+
+	  <!-- Compiled and minified CSS -->
+	  <link rel="stylesheet" href="css/materialize.min.css">
+
+	  <script type="text/javascript" src="animations.js"></script>
+</head>
+<body>
+	
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+  <div class="row" id="1" style="min-height:300px !important;">
+    <div class="col s15 m3">
+      <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
+    <div class="card blue-grey lighten-3" style="min-width: 400px !important;">
+      <div class="card-content">
+        <p>Task List #01</p>
+      </div>
+      <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a href="#test4">Todo</a></li>
+          <li class="tab"><a class="active" href="#test5">Doing</a></li>
+          <li class="tab"><a href="#test6">Test</a></li>
+          <li class="tab"><a href="#test7">Done</a></li>
+
+        </ul>
+      </div>
+      <div class="card-content grey lighten-4">
+        <div id="test4">
+          <div class = "task">
+              <p class = "task-descrption">Teste</p>
+          </div>
+
+        </div>
+        <div id="test5">Test 2</div>
+        <div id="test6">Test 3</div>
+        <div id="test7">Test 4</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <div class = "add-form">
+        <input type="text" name="" placeholder="task description" id="taskDesc">
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="addTaskLink">Add</a>
+    </div>
+  </div>
+
+    </body>
+  </html>
+
+</body>
+</html>
