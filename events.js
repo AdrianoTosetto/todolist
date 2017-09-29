@@ -26,10 +26,13 @@ var loadTasks = function() {
 	if(id == null) return;
 	console.log(id);
 	for(var i = 1; i < id; i++) {
+
 		var taskID    = "taskID"    + i;
 		var beginID   = "beginID"   + i;
 		var endID     = "endID"     + i;
 		var statusID  = "statusID"  + i;
+
+		if(getCookie(taskID) == null) continue;
 
 		var vtaskID    = getCookie(taskID);
 		var vbeginID   = getCookie(beginID);
@@ -47,15 +50,17 @@ var loadTasks = function() {
 }
 $(document).ready(function() {
 	//$(document).on('click', 'td', function() {});
+	if(lastId == null) lastId = 1;
 	loadTasks();
 	$(document).on('click', '.updateButton', function(){
 		var id = getIDFromString( $(this).attr('id') );
+
+		console.log("id atualizado: " + id);
 		var taskID    = "taskID"    + id;
 		var beginID   = "beginID"   + id;
 		var endID     = "endID"     + id;
 		var statusID  = "statusID"  + id;
 		var updtBtnID = "updtBtnID" + id;
-
 
 
 		console.log($('#' + taskID).val());
@@ -80,6 +85,15 @@ $(document).ready(function() {
 		setCookie("lastID", lastId, 10);
 		console.log(getCookie("lastID"));
 
+	});
+	$('#deleteButton').click(function(){
+		$('.delete-task').each(function() {
+			var dis = $(this);
+			if(dis.is(':checked')) {
+				var attr = dis.parent().parent().attr('id');
+				console.log(attr);
+			}
+		});
 	});
 });
 
@@ -121,7 +135,7 @@ var appendTask = function(tableID, data) {
 	html    += '</td><td><input type="date" id = "'+beginID+'" value = "'+data[1]+'"/>';
 	html    += '</td><td><input type="date" id="'+endID+'" value = "' +data[2]+ '"/></td>';
 	html    += '<td><select id = "'+statusID+'" value = "'+data[3]+'""><option value="todo">To do</option><option value="doing">Doing</option><option value="done">Done</option></select>';
-	html    += '<td><input type="checkbox" name=""></td>';
+	html    += '<td><input type="checkbox" name="" class = "delete-task"></td>';
 	html    += '<td>-1</td>';
 	html    += '<td><input type="button" value="atualizar" class="updateButton" id="'+data[4]+'"/></td>';
 	
@@ -131,7 +145,7 @@ var appendTask = function(tableID, data) {
 }
 
 var addNewTask = function(tableId) {
-	var id = getCookie("lastID") | 1;
+	var id = getCookie("lastID") == null ? 1 : getCookie("lastID"); 
 	var taskID    = "taskID"    + id;
 	var beginID   = "beginID"   + id;
 	var endID     = "endID"     + id;
@@ -159,6 +173,10 @@ function setCookie(name, value, days) {
 
 	document.cookie = encodeURIComponent(name) + "=" + 
 		encodeURIComponent(value) + endDate + "; path =/";
+}
+
+var unsetCookie(name)  = function() {
+	setCookie(name, value, -1);
 }
 
 function getCookie(name) {

@@ -24,3 +24,29 @@ tr{
 	position: relative;
 	bottom: 1px;
 }
+.task-container {
+	width: 200px;
+	height:300px;
+	border:1px solid #000;
+}
+.task-header{
+	height: 10%;
+	width: 100%;
+	border-bottom:1px solid #000;
+	background: #eee;
+	overflow-y:scroll;
+}
+.task-header .deletion-icon{
+	float:right;
+}
+.text-title{
+	color: #000;
+	font-size:12px;	
+	text-align:center;
+	border:1px solid green;
+	margin-top:-0.5px;
+	width:80%;
+}
+.deletion-icon{
+	
+}
