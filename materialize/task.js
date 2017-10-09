@@ -6,20 +6,36 @@ $(document).ready(function() {
 
 	$("#addTaskLink").click(function() {
 		var taskDesc = $("#taskDesc").val();
-		addTask(taskDesc, "todo", readId());
+		var status   = $("#selectTaskStatus").val();
+		console.log(status);
+		addTask(taskDesc, status, readId());
+
+		setCookie("nextId", readId() + 1);
 	});
 	console.log("whatever");
 	loadTasks();
 });
+
 var addTask = function(taskDesc, status, id) {
 	setCookies(taskDesc, status, id);
 }
 
 var loadTasks = function() {
 	var _id = readId();
-
+	console.log(_id);
 	for(var cid = 1; cid < _id; cid++) {
-		alert(getCookie("taskDesc" + cid));
+		var taskDesc = getCookie("taskDesc"   + cid);
+		var status   = getCookie("taskStatus" + cid);
+		
+		var html = $('<p class = "paragraph-task">' +taskDesc+ '</p>'); 
+		if(status == "todo")
+			$("#tasktodo").append(html);
+		if(status == "doing")
+			$("#taskDoing").append(html);
+		if(status == "done")
+			$("#taskDone").append(html);
+		if(status == "test")
+			$("#taskTest").append(html);
 	}
 }
 

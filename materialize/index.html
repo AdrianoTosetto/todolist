@@ -42,23 +42,22 @@
       </div>
       <div class="card-tabs">
         <ul class="tabs tabs-fixed-width">
-          <li class="tab"><a href="#test4">Todo</a></li>
-          <li class="tab"><a class="active" href="#test5">Doing</a></li>
-          <li class="tab"><a href="#test6">Test</a></li>
-          <li class="tab"><a href="#test7">Done</a></li>
-
+          <li class="tab" id="todoTab"><a href="#tasktodo">Todo</a></li>
+          <li class="tab"><a class="active" href="#taskDoing">Doing</a></li>
+          <li class="tab"><a href="#taskDone">Done</a></li>
+          <li class="tab"><a href="#taskTest">Test</a></li>
         </ul>
       </div>
       <div class="card-content grey lighten-4">
-        <div id="test4">
+        <div id="tasktodo">
           <div class = "task">
-              <p class = "task-descrption">Teste</p>
+              <p class = "task-descrption"></p>
           </div>
 
         </div>
-        <div id="test5">Test 2</div>
-        <div id="test6">Test 3</div>
-        <div id="test7">Test 4</div>
+        <div id="taskDoing"></div>
+        <div id="taskDone"></div>
+        <div id="taskTest"></div>
       </div>
     </div>
   </div>
@@ -69,7 +68,13 @@
     <div class="modal-content">
       <h4>Modal Header</h4>
       <div class = "add-form">
-        <input type="text" name="" placeholder="task description" id="taskDesc">
+        <input type="text" name="" placeholder="task description" id="taskDesc"/>
+        <select style="display: block !important;" id="selectTaskStatus">
+            <option value="todo">To do</option>
+            <option value="doing">Doing</option>
+            <option value="done">Done</option>
+            <option value="test">Test</option>
+        </select> 
       </div>
 
     </div>
