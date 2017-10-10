@@ -7,6 +7,7 @@ $(document).ready(function() {
 	$("#addTaskLink").click(function() {
 		var taskDesc = $("#taskDesc").val();
 		var status   = $("#selectTaskStatus").val();
+		console.log(taskDesc);
 		console.log(status);
 		addTask(taskDesc, status, readId());
 
@@ -24,10 +25,13 @@ var loadTasks = function() {
 	var _id = readId();
 	console.log(_id);
 	for(var cid = 1; cid < _id; cid++) {
+
 		var taskDesc = getCookie("taskDesc"   + cid);
 		var status   = getCookie("taskStatus" + cid);
+		console.log(taskDesc + " " + status);
+		//if(taskDesc == null || status == null) continue;
 		
-		var html = $('<p class = "paragraph-task">' +taskDesc+ '</p>'); 
+		var html = $('<p class = "paragraph-task" id="'+cid+'">' +taskDesc+ '</p>'); 
 		if(status == "todo")
 			$("#tasktodo").append(html);
 		if(status == "doing")

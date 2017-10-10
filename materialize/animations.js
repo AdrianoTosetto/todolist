@@ -2,7 +2,7 @@ var isDragging = false;
 
 var x = 0, y = 0;
 
-var fodase = true;
+var fodase = false;
 
 var drag = function(selector, target) {
 	var position = $(target).offset();
@@ -32,27 +32,5 @@ var drag = function(selector, target) {
 }
 
 $(document).ready(function() {
-	drag(".paragraph-task", "#todoTab");
-	if(fodase) {
-		$('.modal').modal();
-		$("#1").mousedown(function() {
-			$(document).mousemove(function(evt) {
-				console.log('dragging!');
-				x = evt.pageX;
-				y = evt.pageY;
-
-
-				//$('#1').css({'margin-left': x + 'px'});
-				//$('#1').css({'margin-top': y + 'px'});
-			});
-
-			$(document).mouseup(function() {
-				console.log(x + " - " + y);
-				$(document).unbind('mousemove');
-
-				//$('#1').css({'margin-left': x + 'px'});
-				//$('#1').css({'margin-top': y + 'px'});
-			});
-		});
-	}
+	$('.modal').modal();
 });

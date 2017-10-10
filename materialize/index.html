@@ -15,6 +15,28 @@
 	  <link rel="stylesheet" href="css/materialize.min.css">
 
 	  <script type="text/javascript" src="animations.js"></script>
+
+    <script type="text/javascript">
+      
+      var onDrag = function(event) {
+          //event.preventDefault();
+          event.dataTransfer.setData('id', 'data teste');
+      }
+
+      var onDragOver = function(event) {
+        
+      }
+
+      var onDrop = function(event) {
+         var data = event.dataTransfer.getData('id');
+         console.log(data);
+      }
+
+      var onDragEnd = function(event) {
+        //event.preventDefault();
+        alert();
+      }
+    </script>
 </head>
 <body>
 	
@@ -42,7 +64,7 @@
       </div>
       <div class="card-tabs">
         <ul class="tabs tabs-fixed-width">
-          <li class="tab" id="todoTab"><a href="#tasktodo">Todo</a></li>
+          <li class="tab" id="todoTab" ondrop="onDrop(event);" ondragover="event.preventDefault();"><a href="#tasktodo">Todo</a></li>
           <li class="tab"><a class="active" href="#taskDoing">Doing</a></li>
           <li class="tab"><a href="#taskDone">Done</a></li>
           <li class="tab"><a href="#taskTest">Test</a></li>
@@ -55,7 +77,7 @@
           </div>
 
         </div>
-        <div id="taskDoing"></div>
+        <div id="taskDoing"><p draggable=true ondragstart="onDrag(event)" id="1">Teste</p></div>
         <div id="taskDone"></div>
         <div id="taskTest"></div>
       </div>
