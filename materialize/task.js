@@ -7,18 +7,19 @@ $(document).ready(function() {
 	$("#addTaskLink").click(function() {
 		var taskDesc = $("#taskDesc").val();
 		var status   = $("#selectTaskStatus").val();
-		console.log(taskDesc);
-		console.log(status);
 		addTask(taskDesc, status, readId());
 
-		setCookie("nextId", readId() + 1);
+		setCookie("nextId", parseInt(readId()) + 1);
 	});
-	console.log("whatever");
 	loadTasks();
 });
 
 var addTask = function(taskDesc, status, id) {
 	setCookies(taskDesc, status, id);
+}
+
+var resetCookie = function(taskDesc, status,id) {
+
 }
 
 var loadTasks = function() {
@@ -31,7 +32,7 @@ var loadTasks = function() {
 		console.log(taskDesc + " " + status);
 		//if(taskDesc == null || status == null) continue;
 		
-		var html = $('<p class = "paragraph-task" id="'+cid+'">' +taskDesc+ '</p>'); 
+		var html = $('<p class = "paragraph-task" id="'+cid+'"  draggable=true ondragstart="onDrag(event)" >' +taskDesc+ '</p>'); 
 		if(status == "todo")
 			$("#tasktodo").append(html);
 		if(status == "doing")

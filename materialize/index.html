@@ -20,11 +20,11 @@
       
       var onDrag = function(event) {
           //event.preventDefault();
-          event.dataTransfer.setData('id', 'data teste');
+          event.dataTransfer.setData('id', this.id);
       }
 
       var onDragOver = function(event) {
-        
+
       }
 
       var onDrop = function(event) {
