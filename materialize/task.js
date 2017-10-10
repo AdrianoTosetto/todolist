@@ -30,7 +30,7 @@ var loadTasks = function() {
 		var taskDesc = getCookie("taskDesc"   + cid);
 		var status   = getCookie("taskStatus" + cid);
 		console.log(taskDesc + " " + status);
-		//if(taskDesc == null || status == null) continue;
+		if(taskDesc == null || status == null) continue;
 		
 		var html = $('<p class = "paragraph-task" id="'+cid+'"  draggable=true ondragstart="onDrag(event)" >' +taskDesc+ '</p>'); 
 		if(status == "todo")
