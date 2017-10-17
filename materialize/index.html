@@ -5,6 +5,41 @@
 
 
 	  <!-- Compiled and minified JavaScript -->
+    <style type="text/css">
+    #todolist {
+      width: 900px;
+      border:1px solid #CCC;
+      height: 600px;
+    }
+    #todo{
+      border:1px solid #000;
+      width: 25%;
+      height: 100%;
+      float:left;
+    }
+    #doing {
+      border:1px solid #000;
+      width: 25%;
+      height: 100%;
+      float:right;
+    }
+    #test{
+      border:1px solid #000;
+      width: 25%;
+      height: 100%;
+      float:right;
+    }
+    #done{
+      border:1px solid #000;
+      width: 25%;
+      height: 100%;
+      float:right;
+    }
+    .header{
+      width: 100%;
+      border: 1px solid #000;
+    }
+    </style>
 	  <script src="jquery.js"></script>
 
 	  <script src="js/materialize.min.js"></script>	  
@@ -105,13 +140,33 @@
     </div>
   </div>
 
-
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
     </div>
-        
     </body>
-  </html>
+    <div id="todolist" ondrop='onDrop(event, "todo");' ondragover="event.preventDefault();">
+      <div id="todo">
+        <div class="header">
+          Todo
+        </div>
+      </div>
+      <div id="doing" ondrop='onDrop(event, "doing");' ondragover="event.preventDefault();">
+        <div class="header">
+          Doing
+        </div>
+      </div>
+      <div id="test" ondrop='onDrop(event, "test");' ondragover="event.preventDefault();">
+        <div class="header">
+          Test
+        </div>
+      </div>
+      <div id="done" ondrop='onDrop(event, "done");' ondragover="event.preventDefault();">
+        <div class="header">
+          Done
+        </div>
+      </div>
+    </div>
 
+  </html>
 </body>
 </html>

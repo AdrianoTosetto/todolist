@@ -34,13 +34,13 @@ var loadTasks = function() {
 		
 		var html = $('<p class = "paragraph-task" id="'+cid+'"  draggable=true ondragstart="onDrag(event)" >' +taskDesc+ '</p>'); 
 		if(status == "todo")
-			$("#tasktodo").append(html);
+			$("#todo").append(html);
 		if(status == "doing")
-			$("#taskDoing").append(html);
+			$("#doing").append(html);
 		if(status == "done")
-			$("#taskDone").append(html);
+			$("#done").append(html);
 		if(status == "test")
-			$("#taskTest").append(html);
+			$("#test").append(html);
 	}
 }
 
