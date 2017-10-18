@@ -1,5 +1,6 @@
 var default_days = 10;
 var lastId = getCookie("nextId"); //last id task added
+var columns = Array();
 
 
 $(document).ready(function() {
