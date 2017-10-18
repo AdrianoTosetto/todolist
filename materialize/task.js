@@ -10,6 +10,7 @@ $(document).ready(function() {
 		addTask(taskDesc, status, readId());
 
 		setCookie("nextId", parseInt(readId()) + 1);
+		loadTasks();
 	});
 	loadTasks();
 });
@@ -22,29 +23,37 @@ var resetCookie = function(taskDesc, status,id) {
 
 }
 
+var clearHTML = function() {
+	$('.content').empty();
+}
+
 var loadTasks = function() {
+	clearHTML();
 	var _id = readId();
 	console.log(_id);
 	for(var cid = 1; cid < _id; cid++) {
 
 		var taskDesc = getCookie("taskDesc"   + cid);
 		var status   = getCookie("taskStatus" + cid);
-		console.log(taskDesc + " " + status);
+		//console.log(taskDesc + " " + status);
 		if(taskDesc == null || status == null) continue;
 		
-		var html = $('<p class = "paragraph-task" id="'+cid+'"  draggable=true ondragstart="onDrag(event)" >' +taskDesc+ '</p>'); 
+		var html = $('<div class="task-container"><p class = "paragraph-task" id="'+cid+'"  draggable=true ondragstart="onDrag(event,' + cid +')">' +taskDesc+ '</p></div>'); 
 		if(status == "todo")
-			$("#todo").append(html);
+			$("#todoContent").append(html);
 		if(status == "doing")
-			$("#doing").append(html);
+			$("#doingContent").append(html);
 		if(status == "done")
-			$("#done").append(html);
+			$("#doneContent").append(html);
 		if(status == "test")
-			$("#test").append(html);
+			$("#testContent").append(html);
 	}
 }
 
+
+//mudar 
 var readId = function() {
+
 	if((id = getCookie("nextId")) != null)
 		 return id;
 	else
