@@ -72,6 +72,8 @@
 	  <script type="text/javascript" src="animations.js"></script>
 
     <script type="text/javascript">
+      var lastTaskDraggedOver = -1;
+      var lastTaskDragged = -1;
       var calledTwice = new Array();
 
       var len = readId();
@@ -82,10 +84,50 @@
 
       var onDrag = function(event, id) {
           //event.preventDefault();
-          event.dataTransfer.setData('id',id);      }
+          event.dataTransfer.setData('id',id);      
+      }
 
-      var onDragOver = function(event) {
+      var onDragOver = function(event, id) {
+        var idDrag = event.dataTransfer.getData('id'); // task sendo arrastada
+        lastTaskDraggedOver = id;
+        lastTaskDragged = idDrag;
 
+        console.log("Task send arrastada " + lastTaskDragged + " task sendo por baixo " + lastTaskDraggedOver);
+      }
+
+      var onDragEnd = function(event, id) {
+      		//event.preventDefault();
+        if(lastTaskDragged == lastTaskDraggedOver) return;
+
+        if(lastTaskDragged > lastTaskDraggedOver) {
+            for(var i = lastTaskDragged + 1; i >= lastTaskDraggedOver; i--) {
+              var newId = i + 1;
+              var taskDesc   = getCookie("taskDesc" + newId);
+              var taskStatus = getCookie("taskStatus" + newId);
+
+              setCookie("taskDesc" + newId, taskDesc);
+              setCookie("taskStatus" + newId, taskStatus);
+            } 
+        }
+        swapIdTasks(lastTaskDraggedOver, lastTaskDragged);
+        loadTasks();
+
+        lastTaskDragged = -1;
+        lastTaskDraggedOver = -1;
+      }
+
+      var swapIdTasks = function(id1, id2) {
+      		var taskDescId1 = getCookie("taskDesc" + id1);
+      		var taskDescId2 = getCookie("taskDesc" + id2);
+
+      		var taskStatusId1 = getCookie("taskStatus" + id1);
+      		var taskStatusId2 = getCookie("taskStatus" + id2);
+
+      		setCookie("taskDesc" + id2, taskDescId1);
+      		setCookie("taskStatus" + id2, taskStatusId1);
+
+      		setCookie("taskDesc" + id1, taskDescId2);
+      		setCookie("taskStatus" + id1, taskStatusId2);
       }
 
       var onDrop = function(event, status) {
@@ -93,18 +135,14 @@
         if(!calledTwice[data-1]) {
             setCookie("taskStatus" + data, status);
             console.log(status);
-            //loadTasks();
             var taskDesc = getCookie("taskDesc" + (parseInt(data)));
             var html = $('<div class="task-container"><p class = "paragraph-task" id="'+parseInt(data)+'"  draggable=true ondragstart="onDrag(event,' + parseInt(data) +')">' +taskDesc+ '</p></div>'); 
             $('#' + data).parent().remove();
             $("#" + status + "Content").prepend(html);
+
+            loadTasks();
           }
           for(var i = 0; i < len; i++) calledTwice[i] = false;
-      }
-
-      var onDragEnd = function(event) {
-        //event.preventDefault();
-        alert();
       }
     </script>
 </head>

@@ -39,7 +39,9 @@ var loadTasks = function() {
 		//console.log(taskDesc + " " + status);
 		if(taskDesc == null || status == null) continue;
 		
-		var html = $('<div class="task-container"><p class = "paragraph-task" id="'+cid+'"  draggable=true ondragstart="onDrag(event,' + cid +')">' +taskDesc+ '</p></div>'); 
+		var html = $('<div class="task-container"><p class = "paragraph-task" id="'+
+			cid+'"  draggable=true ondragstart="onDrag(event,' + cid +')" ondragover="onDragOver(event,'+cid+');" ondragend = onDragEnd();>' 
+			+taskDesc+" " + cid +'</p></div>'); 
 		if(status == "todo")
 			$("#todoContent").append(html);
 		if(status == "doing")
